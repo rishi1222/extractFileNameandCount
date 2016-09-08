@@ -10,6 +10,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -169,6 +170,8 @@ public class ExtractFileNameCount {
     public static void main(String[] args) throws Exception{
 
         ExtractFileNameCount extarctFiLeName = new ExtractFileNameCount();
+        Properties properties= System.getProperties();
+        System.out.print("The environment path is :" + properties);
 
         extarctFiLeName.run(args[0],args[1],args[2],args[3]);
 
