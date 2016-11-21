@@ -20,53 +20,111 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo>${env.PATH}</echo>
+                                <echo>${user.home}</echo>
+                                <echo>${env.HOME}</echo>
+                                <echo>${env.USER}</echo>
+                                <echo>${java.home}</echo>
+                                <echo>${java.class.path}</echo>
+                                <echo>${java.library.path}</echo>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.14</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*.java</exclude>
-                    </excludes>
-                </configuration>
+                <!--<configuration>-->
+                    <!--<skipTests>true</skipTests>-->
+                    <!--&lt;!&ndash;<excludes>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<exclude>**/*.java</exclude>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</excludes>&ndash;&gt;-->
+                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.4</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <debug>true</debug>
+                    <debuglevel>source,lines,vars</debuglevel>
+                    <optimize>true</optimize>
+                </configuration>
             </plugin>
 
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>exec-maven-plugin</artifactId>-->
-                <!--<version>1.2.1</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>test</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>java</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
 
-                    <!--<mainClass>ExtractFileNameCount</mainClass>-->
-                    <!--<arguments>-->
-                        <!--<argument>hdfs</argument>-->
-                        <!--<argument>hdfs://Venus/project/boldqed/datasets/IQM/Full/EquitiesDerivativesAndFundsQuote.Identifier.Instrument_Full/</argument>-->
-                        <!--<argument>hdfs://Venus/project/ecpdemolinkeddata/SupportUtility/duplicateFiles/</argument>-->
-                        <!--<argument>2016-08-18</argument>-->
-                    <!--</arguments>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+                <configuration>
+                    <mainClass>ExtractFileNameCount</mainClass>
+                    <arguments>
+                        <argument>hdfs</argument>
+                        <argument>hdfs://Venus/project/boldqed/datasets/IQM/Full/EquitiesDerivativesAndFundsQuote.Instrument_Full</argument>
+                        <argument>hdfs://Venus/project/ecpdemolinkeddata/SupportUtility/duplicateFiles/</argument>
+                        <argument>2016-11-05</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>attach-sources-test</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <appendAssemblyId>true</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>ExtractFileNameCount</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
+                        <!--<descriptorRef>project</descriptorRef>-->
                         <descriptorRef>jar-with-dependencies</descriptorRef>
+                        <!--<descriptorRef>src</descriptorRef>-->
                     </descriptorRefs>
                 </configuration>
                 <executions>
