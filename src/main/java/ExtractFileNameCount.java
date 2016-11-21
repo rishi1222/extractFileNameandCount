@@ -127,13 +127,14 @@ public class ExtractFileNameCount {
 
 
                 if (fileStatus.getPath().toString().contains(filterString)) {
-                    System.out.println("chmod a+rwx on {}" + fileStatus.getPath().toString());
+                    System.out.println(fileStatus.getPath().toString());
                     counts.put(fileStatus.getPath().toString(), 1);
                     count.add(fileStatus.getPath().toString());
                 }
 
 
             }
+
             BufferedWriter br=new BufferedWriter(new OutputStreamWriter(fs.create(xmlOutPutPath,true)));
 
             if(counts.size()==count.size())
@@ -172,7 +173,6 @@ public class ExtractFileNameCount {
         ExtractFileNameCount extarctFiLeName = new ExtractFileNameCount();
         Properties properties= System.getProperties();
         System.out.print("The environment path is :" + properties);
-
         extarctFiLeName.run(args[0],args[1],args[2],args[3]);
 
 
