@@ -147,6 +147,7 @@ public class ExtractFileNameCount {
 //                System.out.println(count.removeAll(counts.keySet()));
             }
             else
+
             {
                 br.write("There are duplicates in the folder");
                 br.write(String.valueOf(count.removeAll(counts.keySet())));
